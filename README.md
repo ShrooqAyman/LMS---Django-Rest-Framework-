@@ -1,6 +1,6 @@
 # LMS
 
-This is an example project to illustrate an implementation of Library management system using DRF
+This is an  implementation of Library management system using DRF
 
 
 
