@@ -1,0 +1,267 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Basic Tables</h4>
+    <div class="mt-2 mb-3">
+      <button type="button" class="btn btn-primary me-2" data-toggle="modal" data-target="#exampleModal" id="create">Add Book</button>
+    </div>
+    <!-- Basic Bootstrap Table -->
+    <div class="card">
+      <h5 class="card-header">Table Basic</h5>
+     
+      <div class="table-responsive text-nowrap">
+        <table class="table" id="Book-Records">
+          <thead>
+            <tr>
+              <th>ISBN</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody class="table-border-bottom-0" >
+         
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--/ Basic Bootstrap Table -->
+  </div>
+<!-- Add Product Modal -->
+  <div class="container">        
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Book</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              </div>
+              <div class="modal-body">
+                  <div class="card mb-4">
+
+                  <div class="card-body">
+                      <form  id="addBook"  method="POST" >
+                      {% csrf_token %}
+                      <div class="row">
+                          <div class="mb-3 col-md-12">
+                          <label for="title" class="form-label">Title</label>
+                          <input
+                              class="form-control"
+                              type="text"
+                              id="title"
+                              name="title"
+                              value=""
+                              autofocus
+                          />
+                          </div>
+                          <div class="mb-3 col-md-12">
+                          <label for="isbn" class="form-label">ISBN</label>
+                          <input class="form-control" type="text" name="isbn" id="isbn" value="" />
+                          </div>
+                          <div class="mb-3 col-md-12">
+                          <label for="isbn" class="form-label">Slug</label>
+                          <input class="form-control" type="text" name="slug" id="slug" value="" />
+                          </div>
+                          <div class="mb-3 col-md-12">
+                          <label for="author" class="form-label">Author</label>
+                          <input
+                              class="form-control"
+                              type="text"
+                              id="author"
+                              name="author"
+                              value=""
+                              placeholder="author"
+                          />
+                          </div>
+                          
+                          <div class="mb-3 col-md-12">
+                          <label class="form-label" for="category">Category</label>
+                          <select id="category" name="category" class="select2 form-select">
+                              <option value="">Select</option>
+                              
+                          </select>
+                          </div>
+                          <div class="mb-3 col-md-12">
+                          <label class="form-label" for="shelf">Shelf</label>
+                          <select id="shelf" name="shelf" class="select2 form-select">
+                              <option value="">Select</option>
+                              
+                          </select>
+                          </div>
+                          <div class="mb-3 col-md-12">
+                          <label class="form-label" for="status">Status</label>
+                          <select id="status" name="status" class="select2 form-select">
+                              <option value="">Select</option>
+                              <option value="available">available</option>
+                              <option value="non-available">non-available</option>
+                              
+                          </select>
+                          </div>
+                          <div class="mb-3 col-md-12">
+                          <label class="form-label" for="country">Description</label>
+                          <textarea class="form-control" aria-label="Description" id="description" name="description"></textarea>
+
+                          </div>
+                          <div class="mb-3 col-md-12">
+                          <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="is_active" name="is_active"  />
+                              <label class="form-check-label" for="is_active"> Is Active </label>
+                          </div>
+                          <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="in_stock" name="in_stock"  />
+                              <label class="form-check-label" for="in_stock"> Is stock </label>
+                          </div>
+
+                          </div>
+
+                          <div class="mb-3 col-md-12">
+                              <label for="formFile" class="form-label">Image</label>
+                              <input
+                              type="file"
+                              id="image" name="image"
+                              class="form-control"
+                              
+                              accept="image/png, image/jpeg"
+                            />
+                      
+                          </div>
+                          
+                      
+                      
+                      </div>
+                      <div class="mt-2">
+                          <button type="submit" id="b-create" class="btn btn-primary me-2">Save changes</button>
+                          <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                      </div>
+                      </form>
+                  </div>
+                  <!-- /Account -->
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+  <div class="modal fade" id="editBookModal" tabindex="-1" aria-labelledby="editBookModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" >Edit Book</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-4">
+
+                <div class="card-body">
+                    <form  id="editBook"  method="" >
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="mb-3 col-md-12">
+                          <input type="hidden" id="Myid" value="">
+                        <label for="title" class="form-label">Title</label>
+                        <input
+                            class="form-control"
+                            type="text"
+                            id="title"
+                            name="title"
+                            value=""
+                            autofocus
+                        />
+                        </div>
+                        <div class="mb-3 col-md-12">
+                        <label for="isbn" class="form-label">ISBN</label>
+                        <input class="form-control" type="text" name="isbn" id="isbn" value="" />
+                        </div>
+                        <div class="mb-3 col-md-12">
+                        <label for="isbn" class="form-label">Slug</label>
+                        <input class="form-control" type="text" name="slug" id="slug" value="" />
+                        </div>
+                        <div class="mb-3 col-md-12">
+                        <label for="author" class="form-label">Author</label>
+                        <input
+                            class="form-control"
+                            type="text"
+                            id="author"
+                            name="author"
+                            value=""
+                            placeholder="author"
+                        />
+                        </div>
+                        
+                        <div class="mb-3 col-md-12">
+                        <label class="form-label" for="category">Category</label>
+                        <select id="category" name="category" class="select2 form-select">
+                            <option value="">Select</option>
+                            
+                        </select>
+                        </div>
+                        <div class="mb-3 col-md-12">
+                        <label class="form-label" for="shelf">Shelf</label>
+                        <select id="shelf" name="shelf" class="select2 form-select">
+                            <option value="">Select</option>
+                            
+                        </select>
+                        </div>
+                        <div class="mb-3 col-md-12">
+                        <label class="form-label" for="status">Status</label>
+                        <select id="status" name="status" class="select2 form-select">
+                            <option value="">Select</option>
+                            <option value="available">available</option>
+                            <option value="non-available">non-available</option>
+                            
+                        </select>
+                        </div>
+                        <div class="mb-3 col-md-12">
+                        <label class="form-label" for="country">Description</label>
+                        <textarea class="form-control" aria-label="Description" id="description" name="description"></textarea>
+
+                        </div>
+                        <div class="mb-3 col-md-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="is_active" name="is_active"  />
+                            <label class="form-check-label" for="is_active"> Is Active </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="in_stock" name="in_stock"  />
+                            <label class="form-check-label" for="in_stock"> Is stock </label>
+                        </div>
+
+                        </div>
+
+                        <div class="mb-3 col-md-12">
+                            <label for="formFile" class="form-label">Image</label>
+                            <input
+                            type="file"
+                            id="image" name="image"
+                            class="form-control"
+                            
+                            accept="image/png, image/jpeg"
+                          />
+                    
+                        </div>
+                        
+                    
+                    
+                    </div>
+                    <div class="mt-2">
+                        <button type="submit" id="b-create" class="btn btn-primary me-2">Save changes</button>
+                        <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                    </div>
+                    </form>
+                </div>
+                <!-- /Account -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  </div>
+{% endblock %}

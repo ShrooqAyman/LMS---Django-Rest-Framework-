@@ -1,0 +1,56 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+
+<div class="col-md-8">
+    <!-- HTML5 Inputs -->
+    <div class="card mb-4">
+      <form  id="issue"  method="" >
+        {% csrf_token %}
+      <h5 class="card-header">Create Issue</h5>
+      <div class="card-body">
+        <div class="mb-3 row">
+          <label for="html5-text-input" class="col-md-2 col-form-label">Slug</label>
+          <div class="col-md-10">
+            <input id="slug" name="slug" class="form-control" type="text" placeholder="" />
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="html5-text-input" class="col-md-2 col-form-label">Username</label>
+          <div class="col-md-10">
+            <select id="username" name="username"  class="form-select">
+              <option>Default select</option>
+             
+            </select>          </div>
+        </div>
+        
+        <div class="mb-3 row">
+          <label for="html5-number-input" class="col-md-2 col-form-label">Book</label>
+          <div class="col-md-10">
+            <select id="books" name="book" class="form-select">
+                <option>Default select</option>
+                
+              </select>
+          </div>
+        </div>
+        
+        <div class="mb-3 row">
+          <label for="html5-date-input" class="col-md-2 col-form-label">To Date</label>
+          <div class="col-md-10">
+            <input class="form-control" type="date" name="to_date" value="2021-06-18" id="html5-date-input" />
+          </div>
+        </div>
+       
+        
+       
+        
+        <button type="submit"  class="btn btn-primary me-2">Save changes</button>
+      </div>
+    </form>
+    </div>
+
+  
+</div>
+</div>
+{% endblock %}
