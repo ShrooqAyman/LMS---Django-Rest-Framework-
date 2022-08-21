@@ -2,7 +2,6 @@
 
 This is an example project to illustrate an implementation of Library management system using DRF
 
-![Django School Screenshot](https://simpleisbetterthancomplex.com/media/2018/01/teacher-quiz.png)
 
 
 ## Running the Project Locally
